@@ -12,7 +12,7 @@ public class Biblio {
 
         Biblio biblioApp = new Biblio();
         biblioApp.updateBiblio();
-        biblioApp.afficherLivreListe();
+        biblioApp.afficherLivreListe(biblioApp);
         boolean isRunning = true;
         Scanner scanner = new Scanner(System.in);
 
@@ -25,12 +25,13 @@ public class Biblio {
             System.out.println("4. Afficher la liste des livres");
             System.out.println("5. Quitter");
             int choix = scanner.nextInt();
+
             scanner.nextLine();  // Consomme la nouvelle ligne
 
             switch (choix) {
                 case 1:
                     // Ajouter un livre
-                    biblioApp.afficherLivreListe();
+                    biblioApp.afficherLivreListe(biblioApp);
                     System.out.println("--Ajout d'un livre--");
                     System.out.print("Entrez l'auteur: ");
                     String auteur = scanner.nextLine();
@@ -40,7 +41,7 @@ public class Biblio {
                     String date = scanner.nextLine();
                     System.out.print("Entrez le nombre de pages: ");
                     int page = scanner.nextInt();
-                    scanner.nextLine(); // Consomme la nouvelle ligne après le nombre
+                    scanner.nextLine();
                     System.out.print("Entrez une description: ");
                     String description = scanner.nextLine();
                     int id = biblioApp.getFreeId();
@@ -51,11 +52,16 @@ public class Biblio {
                     // Supprimer un livre
                     break;
                 case 3:
-                    // Chercher un livre
+                    System.out.print("Entrer le nom du livre a chercher: ");
+                    String nomRecherche = scanner.nextLine();
+                    biblioApp.chercherLivre(nomRecherche);
+                    System.out.println("appuiez sur entrée pour continuer");
+                    scanner.nextLine();
+
                     break;
                 case 4:
                     // Afficher la liste des livres
-                    biblioApp.afficherLivreListe();
+                    biblioApp.afficherLivreListe(biblioApp);
                     break;
                 case 5:
                     isRunning = false;
@@ -126,11 +132,26 @@ public class Biblio {
     }
 
     public void chercherLivre(String nom) {
-        //cherche un livre dans le fichier CSV en fonction de son nom, renvoie un tableau d'objet de livre correspondant
+        boolean found = false;
+        for (Livre livre : biblio) {
+            if (livre.getNom().equalsIgnoreCase(nom)) {
+                System.out.println("Livre trouve :");
+                System.out.println("ID: " + livre.getId());
+                System.out.println("Auteur: " + livre.getAuteur());
+                System.out.println("Nom: " + livre.getNom());
+                System.out.println("Date: " + livre.getDate());
+                System.out.println("Pages: " + livre.getPage());
+                System.out.println("Description: " + livre.getDescriptif());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Aucun livre trouvé avec le nom \"" + nom + "\".");
+        }
     }
 
-    public void afficherLivreListe(){
-        // affiche les tous les elements des objet livre dans le tableau d'objet de livre.
+    public void afficherLivreListe(Biblio biblioApp){
+        biblioApp.updateBiblio();
         for (Livre livre : biblio) {
             System.out.println(livre.getDescriptif());
         }
