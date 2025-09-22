@@ -67,7 +67,7 @@ public class Biblio {
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
                 if (firstLine) {
-                    lines.add(line); // garder l'en-tête
+                    lines.add(line);
                     firstLine = false;
                     continue;
                 }
@@ -147,6 +147,14 @@ return freeId;
             }
         }
 
+    }
+
+    public int countLivre() {
+        return biblio.length;
+    }
+
+    public Livre[] getLivreListe() {
+        return biblio;
     }
 }
 
