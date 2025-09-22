@@ -12,7 +12,7 @@ public class Biblio {
 
         Biblio biblioApp = new Biblio();
         biblioApp.updateBiblio();
-        biblioApp.afficherLivreListe(biblioApp);
+        biblioApp.afficherLivreListe();
         boolean isRunning = true;
         Scanner scanner = new Scanner(System.in);
 
@@ -31,7 +31,7 @@ public class Biblio {
             switch (choix) {
                 case 1:
                     // Ajouter un livre
-                    biblioApp.afficherLivreListe(biblioApp);
+                    biblioApp.afficherLivreListe();
                     System.out.println("--Ajout d'un livre--");
                     System.out.print("Entrez l'auteur: ");
                     String auteur = scanner.nextLine();
@@ -45,7 +45,8 @@ public class Biblio {
                     System.out.print("Entrez une description: ");
                     String description = scanner.nextLine();
                     int id = biblioApp.getFreeId();
-                    Livre newLivre = new Livre(id, auteur, nom, date, page, description);
+                    int available = 1; // disponible à la création
+                    Livre newLivre = new Livre(id, auteur, nom, date, page, description, available);
                     biblioApp.addLivre(newLivre);
                     break;
                 case 2:
@@ -61,7 +62,7 @@ public class Biblio {
                     break;
                 case 4:
                     // Afficher la liste des livres
-                    biblioApp.afficherLivreListe(biblioApp);
+                    biblioApp.afficherLivreListe();
                     break;
                 case 5:
                     isRunning = false;
@@ -94,14 +95,15 @@ public class Biblio {
                     continue; // ignore l'en-tête
                 }
                 String[] data = line.split(cvsSplitBy);
-                if (data.length >= 6) {
+                if (data.length >= 7) {
                     int id = Integer.parseInt(data[0]);
                     String auteur = data[1];
                     String nom = data[2];
                     String date = data[3];
                     int page = Integer.parseInt(data[4]);
                     String descriptif = data[5];
-                    livres.add(new Livre(id, auteur, nom, date, page, descriptif));
+                    int available = Integer.parseInt(data[6]);
+                    livres.add(new Livre(id, auteur, nom, date, page, descriptif, available));
                 }
             }
         } catch (IOException e) {
@@ -119,7 +121,8 @@ public class Biblio {
         sb.append(livre.getNom()).append(",");
         sb.append(livre.getDate()).append(",");
         sb.append(livre.getPage()).append(",");
-        sb.append(livre.getDescriptif()).append("\n");
+        sb.append(livre.getDescriptif()).append(",");
+        sb.append(livre.getAvailable()).append("\n");
         try (java.io.BufferedWriter bw = new java.io.BufferedWriter(new java.io.FileWriter("bibliotheque.csv", true))) {
             bw.write(sb.toString());
         } catch (IOException e) {
@@ -128,7 +131,35 @@ public class Biblio {
     }
 
     public void deleteLivre(int id) {
-        //supprime un livre dans le fichier CSV en fonction de son id
+        String csvFile = "bibliotheque.csv";
+        List<String> lines = new ArrayList<>();
+        BufferedReader br = null;
+        java.io.BufferedWriter bw = null;
+        try {
+            br = new BufferedReader(new FileReader(csvFile));
+            String line;
+            boolean firstLine = true;
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    lines.add(line); // garder l'en-tête
+                    firstLine = false;
+                    continue;
+                }
+                String[] data = line.split(",");
+                if (data.length >= 1 && Integer.parseInt(data[0]) != id) {
+                    lines.add(line);
+                }
+            }
+            br.close();
+            bw = new java.io.BufferedWriter(new java.io.FileWriter(csvFile, false));
+            for (String l : lines) {
+                bw.write(l);
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void chercherLivre(String nom) {
@@ -150,14 +181,16 @@ public class Biblio {
         }
     }
 
-    public void afficherLivreListe(Biblio biblioApp){
-        biblioApp.updateBiblio();
+    public void afficherLivreListe() {
+        updateBiblio();
         for (Livre livre : biblio) {
-            System.out.println(livre.getDescriptif());
+            if (livre.getAvailable() == 1) {
+                System.out.println(livre.getDescriptif());
+            }
         }
     }
 
-    public int getFreeId(){
+    public int getFreeId() {
         int freeId = 1;
         if (biblio != null) {
             boolean found;
@@ -174,8 +207,7 @@ public class Biblio {
         }
         return freeId;
     }
-    
 }
 
 
-    
+

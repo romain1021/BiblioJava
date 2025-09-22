@@ -5,14 +5,16 @@ public class Livre {
     private String date;
     private int page;
     private String descriptif;
+    private int available;
 
-    public Livre(int id, String auteur, String nom, String date, int page, String descriptif) {
+    public Livre(int id, String auteur, String nom, String date, int page, String descriptif, int available) {
         this.id = id;
         this.auteur = auteur;
         this.nom = nom;
         this.date = date;
         this.page = page;
         this.descriptif = descriptif;
+        this.available = available;
     }
 
     public int getId() {
@@ -39,6 +41,10 @@ public class Livre {
         return descriptif;
     }
 
+    public int getAvailable() {
+        return available;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -61,5 +67,9 @@ public class Livre {
 
     public void setDescriptif(String descriptif) {
         this.descriptif = descriptif;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
     }
 }
