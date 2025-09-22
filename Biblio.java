@@ -200,20 +200,20 @@ public class Biblio {
 
     public int getFreeId() {
         int freeId = 1;
-        if (biblio != null) {
-            boolean found;
-            do {
-                found = false;
-                for (Livre livre : biblio) {
-                    if (livre.getId() == freeId) {
-                        found = true;
-                        freeId++;
-                        break;
-                    }
-                }
-            } while (found);
+if (biblio != null) {
+    boolean found;
+    do {
+        found = false;
+        for (Livre livre : biblio) {
+            if (livre.getId() == freeId) {
+                freeId++;
+                found = true;
+                break;
+            }
         }
-        return freeId;
+    } while (found);
+}
+return freeId;
     }
 }
 
