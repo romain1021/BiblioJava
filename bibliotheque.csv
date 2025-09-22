@@ -4,7 +4,6 @@ id,auteur,nom,date,page,descriptif,available
 3,George Orwell,1984,1949,328,Un roman dystopique sur la surveillance et le totalitarisme.,1
 4,Mary Shelley,Frankenstein,1818,280,Une histoire sur la création d’un monstre et les limites de la science.,1
 5,Agatha Christie,Le Meurtre de Roger Ackroyd,1926,312,Un classique du roman policier avec Hercule Poirot.,1
-6,Antoine de Saint-Exupéry,Le Petit Prince,1943,96,Un conte poétique et philosophique universel.,1
 7,Homer,L'Odyssée,-800,500,Le récit épique du retour d’Ulysse après la guerre de Troie.,1
 8,Albert Camus,L'Étranger,1942,184,Un roman existentiel sur l’absurdité de la vie.,1
 9,J.K. Rowling,Harry Potter à l'école des sorciers,1997,309,Le début de la célèbre saga du jeune sorcier.,1
@@ -12,3 +11,4 @@ id,auteur,nom,date,page,descriptif,available
 11,test,test,test,123,blablabla,1
 11,paul,Banana,1922,99999,voici un livre,1
 12,moi meme,la pomme,11111,23412123,c'est un livre cool,1
+6,Romain,fraise,3434,22222,c'est un livre sur zelda,1

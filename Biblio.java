@@ -17,6 +17,7 @@ public class Biblio {
         Scanner scanner = new Scanner(System.in);
 
         while (isRunning) {
+            System.out.println("--------------------Quel choix voulez vous faire --------------------");
             System.out.println("Bienvenue dans votre bibliothèque !");
             System.out.println("Choissisez ce que vous souhaitez faire:");
             System.out.println("1. Ajouter un livre");
@@ -24,9 +25,10 @@ public class Biblio {
             System.out.println("3. Chercher un livre");
             System.out.println("4. Afficher la liste des livres");
             System.out.println("5. Quitter");
+            System.out.print("-------Votre choix:------");
             int choix = scanner.nextInt();
 
-            scanner.nextLine();  // Consomme la nouvelle ligne
+            scanner.nextLine();
 
             switch (choix) {
                 case 1:
@@ -51,6 +53,10 @@ public class Biblio {
                     break;
                 case 2:
                     // Supprimer un livre
+                    System.out.print("quel est l'identifiant du liovre a supprimer: ");
+                    int idLivreASupr = scanner.nextInt();
+                    scanner.nextLine();
+                    biblioApp.deleteLivre(idLivreASupr);
                     break;
                 case 3:
                     System.out.print("Entrer le nom du livre a chercher: ");
@@ -63,10 +69,12 @@ public class Biblio {
                 case 4:
                     // Afficher la liste des livres
                     biblioApp.afficherLivreListe();
+                    System.out.println("appuiez sur entrée pour continuer");
+                    scanner.nextLine();
                     break;
                 case 5:
                     isRunning = false;
-                    System.out.println("Merci d'avoir utilisé votre bibliothèque !");
+                    System.out.println("See you soon 🧌5");
                     break;
                 default:
                     System.out.println("Choix invalide, veuillez réessayer.");
@@ -185,7 +193,7 @@ public class Biblio {
         updateBiblio();
         for (Livre livre : biblio) {
             if (livre.getAvailable() == 1) {
-                System.out.println(livre.getDescriptif());
+                System.out.println(livre.getId() + " " + livre.getNom());
             }
         }
     }
