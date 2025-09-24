@@ -11,8 +11,6 @@ public class Biblio {
         List<Livre> livres = new ArrayList<>();
         String csvFile = "bibliotheque.csv";
         String line;
-        String cvsSplitBy = ",";
-
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
@@ -20,15 +18,21 @@ public class Biblio {
                     firstLine = false;
                     continue; // ignore l'en-tête
                 }
-                String[] data = line.split(cvsSplitBy);
+                String[] data = line.split(",");
                 if (data.length >= 7) {
                     int id = Integer.parseInt(data[0]);
                     String auteur = data[1];
                     String nom = data[2];
                     String date = data[3];
                     int page = Integer.parseInt(data[4]);
-                    String descriptif = data[5];
-                    int available = Integer.parseInt(data[6]);
+                    // description = tout ce qui est entre la 5e colonne et l'avant-dernière
+                    StringBuilder descBuilder = new StringBuilder();
+                    for (int i = 5; i < data.length - 1; i++) {
+                        if (i > 5) descBuilder.append(",");
+                        descBuilder.append(data[i]);
+                    }
+                    String descriptif = descBuilder.toString();
+                    int available = Integer.parseInt(data[data.length - 1]);
                     livres.add(new Livre(id, auteur, nom, date, page, descriptif, available));
                 }
             }
@@ -91,7 +95,7 @@ public class Biblio {
     public void chercherLivre(String nom) {
         boolean found = false;
         for (Livre livre : biblio) {
-            if (livre.getNom().equalsIgnoreCase(nom)) {
+            if (livre.getNom().toLowerCase().contains(nom.toLowerCase())) {
                 System.out.println("Livre trouve :");
                 System.out.println("ID: " + livre.getId());
                 System.out.println("Auteur: " + livre.getAuteur());
@@ -137,7 +141,7 @@ return freeId;
 
     public void chercherLivreParAuteur(String auteurRecherche) {
         for (Livre livre : biblio) {
-            if (livre.getAuteur() == auteurRecherche) {
+            if (livre.getAuteur().toLowerCase().contains(auteurRecherche.toLowerCase())) {
                 System.out.println("ID: " + livre.getId());
                 System.out.println("Auteur: " + livre.getAuteur());
                 System.out.println("Nom: " + livre.getNom());
