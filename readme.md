@@ -1,19 +1,19 @@
-# Bibliothèque en Java
+# Bibliothèque en Java 📚
 
 Ce programme propose une interface interactive pour gérer une bibliothèque, entièrement codée en Java avec une base de données au format CSV.
 
-### Fonctionnalités
+### Fonctionnalités ✅
 
-- **Ajouter un livre**  
+- **Ajouter un livre**  ✅
     Ajoutez de nouveaux livres à la bibliothèque.
 
-- **Rechercher un livre par nom**  
+- **Rechercher un livre par nom**  ✅
     Trouvez rapidement un livre grâce à son titre.
 
-- **Consulter les livres d’un auteur**  
+- **Consulter les livres d’un auteur**  ✅
     Affichez tous les ouvrages d’un auteur spécifique.
 
-- **Calculer la moyenne des pages**  
+- **Calculer la moyenne des pages**  ✅
     Obtenez la moyenne du nombre de pages des livres présents dans la bibliothèque.
 
 
