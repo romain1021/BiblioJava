@@ -25,7 +25,6 @@ public class Biblio {
                     String nom = data[2];
                     String date = data[3];
                     int page = Integer.parseInt(data[4]);
-                    // description = tout ce qui est entre la 5e colonne et l'avant-dernière
                     StringBuilder descBuilder = new StringBuilder();
                     for (int i = 5; i < data.length - 1; i++) {
                         if (i > 5) descBuilder.append(",");

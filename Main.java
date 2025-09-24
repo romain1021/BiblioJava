@@ -29,7 +29,6 @@ public class Main {
             switch (choix) {
                 case 1:
                     // Ajouter un livre
-                    biblioApp.afficherLivreListe();
                     System.out.println("--Ajout d'un livre--");
                     System.out.print("Entrez l'auteur: ");
                     String auteur = scanner.nextLine();
@@ -46,6 +45,7 @@ public class Main {
                     int available = 1; // disponible à la création
                     Livre newLivre = new Livre(id, auteur, nom, date, page, description, available);
                     biblioApp.addLivre(newLivre);
+                    biblioApp.updateBiblio();
                     break;
                 case 2:
                     // Supprimer un livre
@@ -64,6 +64,7 @@ public class Main {
                     break;
                 case 4:
                     // Afficher la liste des livres
+                    biblioApp.updateBiblio();
                     biblioApp.afficherLivreListe();
                     System.out.println("appuiez sur entrée pour continuer");
                     scanner.nextLine();
