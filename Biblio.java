@@ -9,7 +9,7 @@ public class Biblio {
     //-------------- Methode de la classe biblio ----------------//
     public Livre[] updateBiblio() {
         List<Livre> livres = new ArrayList<>();
-        String csvFile = "bibliotheque.csv";
+        String csvFile = "bibliotheque.csv"; //fichier CSV
         String line;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             boolean firstLine = true;

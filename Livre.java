@@ -16,7 +16,7 @@ public class Livre {
         this.descriptif = descriptif;
         this.available = available;
     }
-
+ // Getters and Setters
     public int getId() {
         return id;
     }

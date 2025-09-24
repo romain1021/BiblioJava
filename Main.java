@@ -79,6 +79,7 @@ public class Main {
                 break;
 
                 case 6:
+                //compter les livres et afficher la moyenne de pages.
                     int totalPages = 0;
                     int totalLivres = biblioApp.countLivre();
                         for (Livre livre : biblioApp.getLivreListe()) {
